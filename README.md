@@ -40,6 +40,17 @@ HTML Report Skill 做的就是这件事：在优秀开源项目 [zarazhangrui/fr
 | 生成完缺少客观质量检查 | `validate.py` 做静态质量门禁，80 分以下阻塞交付 |
 | 用户还没确认效果就进入导出/部署 | Phase 5 先打开 demo 让用户确认，再进入 Phase 6 |
 
+## 它是怎么组织起来的
+
+这个项目不是把所有提示词、风格和规则堆进一个超长文件，而是采用 **Harness Engineering + 渐进式披露** 的组织方式：
+
+- `SKILL.md` 负责主工作流、阶段门禁和平台能力适配，相当于生成流程的执行骨架。
+- `references/style-presets/index.json` 只保存风格索引，确认候选方向后才读取对应的独立预设文件。
+- 排版、交互、动画、视口和 HTML 模板分别维护，按当前任务需要加载，而不是一次性注入全部上下文。
+- `content_coverage.py` 和 `validate.py` 负责可执行验证，让内容完整性和质量判断不只依赖模型自觉。
+
+这种结构的目标是让 agent 在有限上下文里拿到“当前阶段真正需要的信息”，同时用脚本和门禁约束关键结果。
+
 ## 30 秒快速开始
 
 推荐使用通用 Agent Skills installer：
@@ -196,9 +207,21 @@ git pull
 - Claude Code 和 Cursor 已支持 Agent Skills 格式，但本项目尚未完成这两个平台的完整回归。
 - 当前主要针对中文汇报排版优化，英文长文档效果仍需更多反馈。
 
+## Roadmap
+
+后续迭代计划已经进入需求池，重点方向包括：
+
+- 更完整的视觉验收与多视口检查。
+- 更可执行、更丰富的风格预设。
+- PDF 导出稳定性和更多分享/部署渠道。
+- PPT 内容覆盖率增强及更多输入源研究。
+- Claude Code、Cursor 等平台的完整端到端回归。
+
+这个项目会根据真实使用反馈快速迭代。如果你在实际汇报中遇到排版、内容丢失、风格选择、交互或导出问题，请务必提交 Issue。具体、可复现的反馈会直接影响后续优先级。
+
 ## 反馈
 
-请通过 [GitHub Issues](https://github.com/chengzi2333/html-report-skill/issues) 提交问题或建议。
+请通过 [GitHub Issues](https://github.com/chengzi2333/html-report-skill/issues) 提交问题或建议。即使只是“这套风格不适合我的场景”或“这里的提问流程不顺”，也欢迎提出。
 
 为了便于复现，请尽量提供：
 

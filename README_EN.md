@@ -40,6 +40,17 @@ This is not an official upstream release. It preserves the HTML slide approach, 
 | Generated output has no objective quality gate | `validate.py` blocks delivery below 80 and reports remaining issues above the threshold |
 | Export starts before the user has checked the result | Phase 5 confirms the demo first; Phase 6 handles sharing and export afterward |
 
+## How the project is structured
+
+This project does not place every prompt, visual preset, and rule in one oversized file. It follows a **Harness Engineering + progressive disclosure** approach:
+
+- `SKILL.md` defines the main workflow, phase gates, and platform capability adapters. It acts as the execution harness.
+- `references/style-presets/index.json` contains a compact preset index. Individual preset files are loaded only after candidate directions are selected.
+- Typography, interactions, animation, viewport behavior, and HTML templates are maintained separately and loaded when the current task needs them.
+- `content_coverage.py` and `validate.py` provide executable checks, so content integrity and delivery quality do not depend on model judgment alone.
+
+The goal is to give the agent only the context required for the current phase while using scripts and gates to constrain critical outcomes.
+
 ## 30-second quick start
 
 Install with the universal Agent Skills installer:
@@ -196,9 +207,21 @@ To uninstall, remove the `html-report-skill` directory from the relevant skills 
 - Claude Code and Cursor support Agent Skills, but this project has not completed full end-to-end regression on those platforms.
 - Typography and layout rules currently prioritize Chinese presentations.
 
+## Roadmap
+
+The next iterations are already tracked in the project backlog, with emphasis on:
+
+- Multi-viewport visual acceptance checks.
+- Richer and more executable style presets.
+- More reliable PDF export and additional sharing/deployment options.
+- Better PPT coverage verification and research into additional source formats.
+- Full end-to-end regression on Claude Code, Cursor, and other supported platforms.
+
+This project will iterate quickly based on real usage. If you encounter layout issues, missing content, weak style choices, interaction problems, or export failures, please open an Issue. Reproducible feedback directly influences prioritization.
+
 ## Feedback
 
-Use [GitHub Issues](https://github.com/chengzi2333/html-report-skill/issues) for reproducible bugs and feature requests.
+Use [GitHub Issues](https://github.com/chengzi2333/html-report-skill/issues) for bugs, feature requests, and workflow feedback. Comments such as “these styles do not fit my reporting scenario” are also useful.
 
 Please include the platform and version, input type, sanitized source fragment, generated HTML or screenshot, reproduction steps, and validation output.
 
