@@ -20,6 +20,7 @@ jobs:
             "upstream"
             "examples"
             "html-report-skill-mvp-dev"
+            "tests"
             ".frontend-slides"
           )
 
@@ -29,6 +30,48 @@ jobs:
               exit 1
             fi
           done
+
+          if find . \
+            -path './.git' -prune -o \
+            -type f \( -name 'test_*.py' -o -name '*_test.py' \) -print |
+            grep -q .; then
+            echo "::error::Development test files must not be included in the release repository."
+            find . \
+              -path './.git' -prune -o \
+              -type f \( -name 'test_*.py' -o -name '*_test.py' \) -print
+            exit 1
+          fi
+
+      - name: Enforce top-level release allowlist
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          allowed="$(
+            printf '%s\n' \
+              ".git" \
+              ".github" \
+              ".gitignore" \
+              "LICENSE" \
+              "README.md" \
+              "README_EN.md" \
+              "SECURITY.md" \
+              "SKILL.md" \
+              "assets" \
+              "references" \
+              "scripts" |
+              sort
+          )"
+          actual="$(find . -mindepth 1 -maxdepth 1 -printf '%f\n' | sort)"
+
+          if [[ "$actual" != "$allowed" ]]; then
+            echo "::error::Unexpected top-level release repository entries found."
+            echo "Allowed:"
+            printf '%s\n' "$allowed"
+            echo "Actual:"
+            printf '%s\n' "$actual"
+            exit 1
+          fi
 
       - name: Enforce runtime script allowlist
         shell: bash
