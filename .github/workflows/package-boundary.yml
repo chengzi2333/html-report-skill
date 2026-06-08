@@ -1,0 +1,85 @@
+name: Package boundary
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject development-only content
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          forbidden_dirs=(
+            "docs"
+            "logs"
+            "upstream"
+            "examples"
+            "html-report-skill-mvp-dev"
+            ".frontend-slides"
+          )
+
+          for dir in "${forbidden_dirs[@]}"; do
+            if [[ -e "$dir" ]]; then
+              echo "::error file=$dir::Development-only directory must not be included in the release repository."
+              exit 1
+            fi
+          done
+
+      - name: Enforce runtime script allowlist
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          expected="$(
+            printf '%s\n' \
+              "content_coverage.py" \
+              "deploy.sh" \
+              "export-pdf.sh" \
+              "extract-pptx.py" \
+              "validate.py" |
+              sort
+          )"
+          actual="$(find scripts -maxdepth 1 -type f -printf '%f\n' | sort)"
+
+          if [[ "$actual" != "$expected" ]]; then
+            echo "::error file=scripts::The installable skill may contain only approved runtime scripts."
+            echo "Expected:"
+            printf '%s\n' "$expected"
+            echo "Actual:"
+            printf '%s\n' "$actual"
+            exit 1
+          fi
+
+      - name: Verify runtime files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          required_files=(
+            "SKILL.md"
+            "LICENSE"
+            "scripts/validate.py"
+            "scripts/content_coverage.py"
+            "scripts/extract-pptx.py"
+            "scripts/deploy.sh"
+            "scripts/export-pdf.sh"
+            "references/style-presets/index.json"
+          )
+
+          for file in "${required_files[@]}"; do
+            test -f "$file" || {
+              echo "::error file=$file::Required runtime file is missing."
+              exit 1
+            }
+          done
+
+          python3 -m py_compile \
+            scripts/validate.py \
+            scripts/content_coverage.py \
+            scripts/extract-pptx.py
+          bash -n scripts/deploy.sh scripts/export-pdf.sh

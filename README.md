@@ -150,19 +150,16 @@ git pull
 6. 执行内容覆盖率和静态质量验证。
 7. 用户确认后选择分享、部署或 PDF 导出。
 
-## 本地验证
+## 安装验证
 
 ```bash
-python3 scripts/test_validate.py
-python3 scripts/test_content_coverage.py
-python3 scripts/test_export_pdf_security.py
-
-for f in scripts/*.py; do
-  python3 -m py_compile "$f"
-done
-
-bash -n scripts/*.sh
+test -f SKILL.md
+test -f references/style-presets/index.json
+test -f scripts/validate.py
+test -f scripts/content_coverage.py
 ```
+
+`scripts/` 只包含 skill 运行时需要的脚本。项目回归测试属于开发资产，不进入正式安装包。
 
 ## 已知限制
 
@@ -196,4 +193,3 @@ Copyright (c) 2025 Zara Zhang
 ```
 
 本项目不是上游官方版本。详见 [LICENSE](LICENSE)。
-

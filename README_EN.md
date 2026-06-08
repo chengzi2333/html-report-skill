@@ -113,19 +113,16 @@ Use HTML Report Skill to turn README.md into a project presentation.
 Use 12-15 slides, presentation paging, and high-density reading.
 ```
 
-## Local verification
+## Installation verification
 
 ```bash
-python3 scripts/test_validate.py
-python3 scripts/test_content_coverage.py
-python3 scripts/test_export_pdf_security.py
-
-for f in scripts/*.py; do
-  python3 -m py_compile "$f"
-done
-
-bash -n scripts/*.sh
+test -f SKILL.md
+test -f references/style-presets/index.json
+test -f scripts/validate.py
+test -f scripts/content_coverage.py
 ```
+
+The `scripts/` directory contains runtime scripts required by the skill. Project regression tests are development assets and are not included in the installable package.
 
 ## Known limitations
 
@@ -152,4 +149,3 @@ Copyright (c) 2025 Zara Zhang
 ```
 
 This is not an official upstream release. See [LICENSE](LICENSE).
-
