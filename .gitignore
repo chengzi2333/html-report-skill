@@ -1,0 +1,10 @@
+.DS_Store
+.frontend-slides/
+__pycache__/
+*.pyc
+.env
+.env.*
+*.pem
+*.key
+dist/
+

@@ -1,0 +1,307 @@
+/* ===========================================   
+视口适配：强制性的基础 CSS 样式   
+每个 HTML 文件必须完整包含此文件。   
+这些样式确保每张幻灯片精准适配视口。   
+=========================================== */
+
+/* 1. 锁定 html/body 到视口 */
+html,
+body {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+/* 2. 每张幻灯片 = 精确的视口高度 */
+.slide {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    /* 动态视口高度，兼容移动端浏览器工具栏遮挡 */
+    overflow: hidden;
+    /* 关键：禁止任何溢出滚动 */
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* 3. 内容容器，用 flex 实现居中 */
+.slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 100%;
+    overflow: hidden;
+    /* 双重保护，防止溢出 */
+    padding: var(--slide-padding);
+}
+
+/* 4. 所有文字和间距必须使用 clamp() 响应式缩放 */
+:root {
+    /* 标题从手机到大屏缩放 */
+    --title-size: clamp(1.5rem, 5vw, 4rem);
+    --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+    --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+    /* 正文文字 */
+    --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+    --small-size: clamp(0.65rem, 1vw, 0.875rem);
+    /* 间距随视口缩放 */
+    --slide-padding: clamp(1rem, 4vw, 4rem);
+    --content-gap: clamp(0.5rem, 2vw, 2rem);
+    --element-gap: clamp(0.25rem, 1vw, 1rem);
+    /* 中文行高比英文略大 */
+    --line-height-base: 1.7;
+    --line-height-heading: 1.3;
+}
+
+/* 5. 卡片/容器使用视口相对最大尺寸 */
+.card,
+.container,
+.content-box {
+    max-width: min(90vw, 1000px);
+    max-height: min(80vh, 700px);
+}
+
+/* 6. 列表自动随视口缩放 */
+.feature-list,
+.bullet-list {
+    gap: clamp(0.4rem, 1vh, 1rem);
+}
+
+.feature-list li,
+.bullet-list li {
+    font-size: var(--body-size);
+    line-height: var(--line-height-base);
+}
+
+/* 7. 网格自适应可用空间 */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+/* 8. 图片受限于视口 */
+img,
+.image-container {
+    max-width: 100%;
+    max-height: min(50vh, 400px);
+    object-fit: contain;
+}
+
+/* 9. 表格自适应样式 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: clamp(0.7rem, 1.3vw, 1rem);
+    line-height: var(--line-height-base);
+}
+
+th {
+    text-align: left;
+    font-weight: 600;
+    padding: clamp(0.5rem, 1vh, 1rem) clamp(0.5rem, 1.5vw, 1.5rem);
+    border-bottom: 2px solid var(--accent, #ddd);
+    color: var(--text-primary);
+    background: transparent;
+}
+
+td {
+    padding: clamp(0.4rem, 0.8vh, 0.8rem) clamp(0.5rem, 1.5vw, 1.5rem);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+    vertical-align: top;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* ===========================================   响应式断点   针对较小视口的激进缩放策略   =========================================== */
+/* 窄视口（< 700px 高度） */
+@media (max-height: 700px) {
+    :root {
+        --slide-padding: clamp(0.75rem, 3vw, 2rem);
+        --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+        --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+        --h2-size: clamp(1rem, 3vw, 1.75rem);
+        --line-height-base: 1.5;
+    }
+}
+
+/* 极窄视口（< 600px 高度） */
+@media (max-height: 600px) {
+    :root {
+        --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+        --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+        --title-size: clamp(1.1rem, 4vw, 2rem);
+        --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+        --line-height-base: 1.4;
+    }
+
+    /* 隐藏非必要元素 */
+    .nav-dots,
+    .keyboard-hint,
+    .decorative {
+        display: none;
+    }
+}
+
+/* 超窄视口（横屏手机，< 500px 高度） */
+@media (max-height: 500px) {
+    :root {
+        --slide-padding: clamp(0.4rem, 2vw, 1rem);
+        --title-size: clamp(1rem, 3.5vw, 1.5rem);
+        --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+        --body-size: clamp(0.65rem, 1vw, 0.85rem);
+        --line-height-base: 1.35;
+    }
+}
+
+/* 窄视口（< 600px 宽度） */
+@media (max-width: 600px) {
+    :root {
+        --title-size: clamp(1.25rem, 7vw, 2.5rem);
+    }
+
+    /* 网格切换为单列 */
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===========================================   减少动画模式   尊重用户的系统偏好设置   =========================================== */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* ===========================================   中文字体基础回退   用于没有在风格预设中专门定义字体的元素   =========================================== */
+body {
+    font-family: "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
+    line-height: var(--line-height-base);
+}
+
+/* 标题默认使用略紧凑的行高 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    line-height: var(--line-height-heading);
+}
+
+/* 确保中文字体在英文回退后正确渲染 */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===========================================   背景纹理增强   微妙的网格纹理增加专业感   =========================================== */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: linear-gradient(rgba(24, 32, 40, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(24, 32, 40, 0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 72%, transparent 100%);
+    z-index: 0;
+}
+
+/* ===========================================   打印样式   确保打印/导出 PDF 时可用   =========================================== */
+@media print {
+
+    /* 隐藏交互元素 */
+    .nav,
+    .progress-bar,
+    .nav-dots,
+    .keyboard-hint,
+    .edit-toggle,
+    .edit-toast,
+    .edit-panel {
+        display: none !important;
+    }
+
+    /* 移除背景效果 */
+    body {
+        background: #fff !important;
+    }
+
+    body::before {
+        display: none;
+    }
+
+    /* 移除动画 */
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* 分页控制 */
+    section {
+        page-break-inside: avoid;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
+
+/* ===========================================   连续滚动模式（可选替代方案）   当用户选择连续滚动时，在 body 上加 scroll-mode class   =========================================== */
+body.scroll-mode {
+    overflow-y: auto;
+}
+
+body.scroll-mode .slide {
+    height: auto;
+    min-height: 100vh;
+    scroll-snap-align: none;
+    overflow: visible;
+    max-height: none;
+}
+
+body.scroll-mode .slide-content {
+    overflow: visible;
+}
+
+/* ===========================================   垂直居中补偿   当幻灯片内容较少时，整体上下居中，避免贴顶留白   =========================================== */
+.slide-content.center-v {
+    justify-content: center;
+}
+
+.slide-content.center-v .section-head {
+    text-align: left;
+}
+
+/* 滚动模式专用 sticky 导航 */
+.scroll-nav {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 14px clamp(24px, 4vw, 40px);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(var(--accent-rgb, 222, 212, 193), 0.75);
+    background: rgba(var(--bg-rgb, 255, 250, 240), 0.82);
+}

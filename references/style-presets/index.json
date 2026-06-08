@@ -1,0 +1,134 @@
+[
+  {
+    "id": "bold-signal",
+    "name": "大胆信号",
+    "tone": "自信、大胆、现代、高冲击力",
+    "best_for": ["项目发布", "管理层汇报", "需要强记忆点的结论页"],
+    "font_pairing": "Archivo Black + Space Grotesk",
+    "palette_summary": "深色渐变背景 + 鲜橙主卡片 + 白色文字",
+    "signature_elements": ["鲜艳彩色主卡片", "大号章节编号", "精确网格对齐"],
+    "risk_notes": "视觉冲击强，不适合过长文字或严肃合规材料。",
+    "file": "01-bold-signal.md"
+  },
+  {
+    "id": "electric-studio",
+    "name": "电光工作室",
+    "tone": "利落、干净、专业、高对比",
+    "best_for": ["正式项目演示", "产品说明", "对外发布"],
+    "font_pairing": "Manrope + Manrope",
+    "palette_summary": "黑白高对比 + 电光蓝强调",
+    "signature_elements": ["上下分栏", "强调色条", "极简间距"],
+    "risk_notes": "需要控制留白，避免信息量过低。",
+    "file": "02-electric-studio.md"
+  },
+  {
+    "id": "creative-voltage",
+    "name": "创意电压",
+    "tone": "大胆、创意、活力、复古现代",
+    "best_for": ["创新项目", "创意提案", "年轻化团队展示"],
+    "font_pairing": "Syne + Space Mono",
+    "palette_summary": "电光蓝 + 深色 + 霓虹黄",
+    "signature_elements": ["左右分栏", "网点纹理", "霓虹徽章"],
+    "risk_notes": "不适合传统、低调或正式合规场景。",
+    "file": "03-creative-voltage.md"
+  },
+  {
+    "id": "night-botanical",
+    "name": "暗夜植物园",
+    "tone": "优雅、精致、艺术感、高级",
+    "best_for": ["品牌叙事", "复盘总结", "需要情绪感染力的汇报"],
+    "font_pairing": "Cormorant + IBM Plex Sans",
+    "palette_summary": "深色背景 + 暖金/粉色/陶土强调",
+    "signature_elements": ["抽象柔和形状", "细竖线装饰", "斜体签名排版"],
+    "risk_notes": "过多数据表格会削弱该风格气质。",
+    "file": "04-night-botanical.md"
+  },
+  {
+    "id": "notebook-tabs",
+    "name": "笔记本标签",
+    "tone": "编辑感、有条理、优雅、有质感",
+    "best_for": ["结构化汇报", "方法论讲解", "评审材料"],
+    "font_pairing": "Bodoni Moda + DM Sans",
+    "palette_summary": "深色外框 + 奶油纸张 + 彩色标签",
+    "signature_elements": ["纸张容器", "右侧彩色标签", "装订孔装饰"],
+    "risk_notes": "标签元素需要随视口缩放，避免移动端拥挤。",
+    "file": "05-notebook-tabs.md"
+  },
+  {
+    "id": "pastel-geometry",
+    "name": "粉彩几何",
+    "tone": "友好、有条理、现代、亲切",
+    "best_for": ["教学分享", "团队同步", "轻量产品介绍"],
+    "font_pairing": "Plus Jakarta Sans + Plus Jakarta Sans",
+    "palette_summary": "粉彩背景 + 白色卡片 + 多色药丸标签",
+    "signature_elements": ["圆角卡片", "竖排药丸标签", "柔和阴影"],
+    "risk_notes": "注意避免过甜或过浅导致对比不足。",
+    "file": "06-pastel-geometry.md"
+  },
+  {
+    "id": "two-tone-pastel",
+    "name": "双色粉彩",
+    "tone": "活泼、现代、友好、创意",
+    "best_for": ["轻松分享", "设计提案", "低压团队展示"],
+    "font_pairing": "Outfit + Outfit",
+    "palette_summary": "桃色 + 薰衣草双色分割",
+    "signature_elements": ["双色背景", "徽章药丸", "面板网格图案"],
+    "risk_notes": "不适合严肃发布或高密度审阅材料。",
+    "file": "07-two-tone-pastel.md"
+  },
+  {
+    "id": "retro-editorial",
+    "name": "复古编辑风",
+    "tone": "个性、自信、编辑感",
+    "best_for": ["开源项目介绍", "README 转项目说明", "观点型汇报"],
+    "font_pairing": "Fraunces + Work Sans",
+    "palette_summary": "奶油色背景 + 炭黑文字 + 暖色强调",
+    "signature_elements": ["抽象几何形状", "加粗边框 CTA", "杂志式标题"],
+    "risk_notes": "需要控制装饰密度，避免遮挡内容。",
+    "file": "08-retro-editorial.md"
+  },
+  {
+    "id": "neon-cyber",
+    "name": "霓虹赛博",
+    "tone": "未来感、科技感、自信",
+    "best_for": ["技术趋势", "AI/安全主题", "高科技发布"],
+    "font_pairing": "Clash Display + Satoshi",
+    "palette_summary": "深邃藏青 + 青色强调 + 品红",
+    "signature_elements": ["粒子背景", "霓虹发光", "网格图案"],
+    "risk_notes": "容易显得过度赛博；不适合正式开源 README 说明。",
+    "file": "09-neon-cyber.md"
+  },
+  {
+    "id": "terminal-green",
+    "name": "终端绿屏",
+    "tone": "开发者风格、极客美学",
+    "best_for": ["CLI 工具", "开发者内部分享", "验证脚本说明"],
+    "font_pairing": "JetBrains Mono + JetBrains Mono",
+    "palette_summary": "GitHub 深色 + 终端绿色",
+    "signature_elements": ["扫描线", "闪烁光标", "代码语法高亮"],
+    "risk_notes": "用户可能觉得像技术 demo，产品发布感不足。",
+    "file": "10-terminal-green.md"
+  },
+  {
+    "id": "swiss-modern",
+    "name": "瑞士现代",
+    "tone": "干净、精确、包豪斯风格",
+    "best_for": ["正式产品说明", "流程框架", "高密度阅读"],
+    "font_pairing": "Archivo + Nunito",
+    "palette_summary": "纯白/纯黑 + 红色强调",
+    "signature_elements": ["可见网格", "非对称布局", "几何形状"],
+    "risk_notes": "对排版精度要求高，需避免内容过散。",
+    "file": "11-swiss-modern.md"
+  },
+  {
+    "id": "paper-ink",
+    "name": "纸墨书香",
+    "tone": "编辑风、文学感、思想深度",
+    "best_for": ["方法论阐述", "复盘文章", "思想型分享"],
+    "font_pairing": "Cormorant Garamond + Source Serif 4",
+    "palette_summary": "暖奶油底 + 炭灰文字 + 深红强调",
+    "signature_elements": ["首字下沉", "引用拉取", "水平分割线"],
+    "risk_notes": "不适合大量代码或密集表格。",
+    "file": "12-paper-ink.md"
+  }
+]

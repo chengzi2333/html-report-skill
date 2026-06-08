@@ -1,0 +1,84 @@
+name: Bug report
+description: Report a reproducible installation, generation, validation, or delivery problem.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Remove private information, credentials, internal URLs, and confidential documents before submitting.
+        Security vulnerabilities must follow SECURITY.md instead of this public form.
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Codex CLI / App
+        - Antigravity
+        - Claude Code
+        - Cursor
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: platform_version
+    attributes:
+      label: Platform version
+      placeholder: "Example: Codex App 2026.06"
+    validations:
+      required: true
+  - type: dropdown
+    id: input_type
+    attributes:
+      label: Input type
+      options:
+        - Markdown
+        - PowerPoint
+        - Installation only
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem description
+      description: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      placeholder: |
+        1. Install the skill at ...
+        2. Start a new session
+        3. Ask ...
+        4. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Sanitized input and output
+      description: Attach a sanitized source fragment, generated HTML, or screenshots when possible.
+    validations:
+      required: false
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation output
+      description: Include validate.py score and content coverage output when applicable.
+      render: shell
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I removed credentials, personal data, internal URLs, and confidential content.
+          required: true
+        - label: I checked that this is not a security vulnerability requiring private disclosure.
+          required: true
+

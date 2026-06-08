@@ -1,0 +1,59 @@
+name: Feature request
+description: Propose a new capability or workflow improvement.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Input formats
+        - Layout and visual style
+        - Content reliability
+        - Validation
+        - Platform compatibility
+        - Deployment or export
+        - Installation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: scenario
+    attributes:
+      label: User scenario
+      description: Describe the task you are trying to complete and why the current workflow is insufficient.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected behavior
+      description: Describe the outcome rather than only a preferred implementation.
+    validations:
+      required: true
+  - type: dropdown
+    id: blocking
+    attributes:
+      label: Does this block your current use?
+      options:
+        - Yes, the workflow cannot be completed
+        - Partially, there is a difficult workaround
+        - No, this is an improvement
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Current workaround or acceptable alternatives
+    validations:
+      required: false
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Examples or references
+      description: Add sanitized examples, screenshots, or public references.
+    validations:
+      required: false
+
