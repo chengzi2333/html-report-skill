@@ -6,7 +6,8 @@ Security fixes are provided for the latest published release.
 
 | Version | Supported |
 |---|---|
-| 1.0.x | Yes |
+| 1.1.x | Yes |
+| 1.0.x | No |
 | Earlier versions | No |
 
 ## Reporting a vulnerability
@@ -38,4 +39,3 @@ Remove API keys, passwords, personal documents, private URLs, and organization d
 The skill can invoke local Python and shell scripts, open local browser previews, and optionally use third-party deployment or PDF tools. Review commands and platform permission prompts before approving them.
 
 Playwright, Vercel CLI, and other optional runtime dependencies are supplied by the user's environment or installed on demand. Keep these tools updated and follow their security guidance.
-

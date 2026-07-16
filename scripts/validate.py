@@ -46,6 +46,38 @@ def validate_html(html_path: str) -> dict:
         "detail": "✓" if has_lightbox else "✗ 缺少 lightbox 或 zoom-in",
     })
 
+    image_references = []
+    for tag in re.findall(r"<(?:img|source|input|video)\b[^>]*>", content, re.IGNORECASE | re.DOTALL):
+        image_references.extend(
+            match[2].strip()
+            for match in re.findall(r"\b(src|poster)\s*=\s*([\"'])(.*?)\2", tag, re.IGNORECASE | re.DOTALL)
+        )
+        for value in re.findall(r"\bsrcset\s*=\s*[\"'](.*?)[\"']", tag, re.IGNORECASE | re.DOTALL):
+            data_uri_pattern = r"data:image/[^,\s]+,[A-Za-z0-9+/=]+"
+            image_references.extend(re.findall(data_uri_pattern, value, re.IGNORECASE))
+            remainder = re.sub(data_uri_pattern, "", value, flags=re.IGNORECASE)
+            for item in remainder.split(","):
+                parts = item.strip().split()
+                if parts and not re.fullmatch(r"\d+(?:\.\d+)?[wx]", parts[0]):
+                    image_references.append(parts[0])
+    css_image_references = [
+        ref.strip()
+        for ref in re.findall(
+            r"(?:background(?:-image)?|content)\s*:[^;{}]*url\(\s*[\"']?([^\"')]+)",
+            content,
+            re.IGNORECASE,
+        )
+    ]
+    image_references.extend(css_image_references)
+    non_portable_images = [
+        ref for ref in image_references if ref and not ref.lower().startswith("data:image/") and not ref.startswith("#")
+    ]
+    checks.append({
+        "name": "图片可移植性",
+        "pass": not non_portable_images,
+        "detail": "✓" if not non_portable_images else f"✗ 发现未内联图片: {non_portable_images[:4]}",
+    })
+
     table_count = len(re.findall(r"<table[\s>]", content, re.IGNORECASE))
     th_center = re.findall(r"<th[^>]*text-align:\s*center", content, re.IGNORECASE)
     tables_pass = table_count == 0 or len(th_center) == 0
@@ -351,11 +383,16 @@ def validate_html(html_path: str) -> dict:
 
     passed = sum(1 for check in checks if check["pass"])
     score = round(passed / len(checks) * 100) if checks else 0
+    blocking_names = {"图片可移植性"}
+    blocking_failures = [
+        check["name"] for check in checks if check["name"] in blocking_names and not check["pass"]
+    ]
     return {
-        "success": score >= 80,
+        "success": score >= 80 and not blocking_failures,
         "score": score,
         "passed": passed,
         "total": len(checks),
+        "blocking_failures": blocking_failures,
         "checks": checks,
     }
 

@@ -52,6 +52,7 @@ jobs:
               ".git" \
               ".github" \
               ".gitignore" \
+              "CHANGELOG.md" \
               "LICENSE" \
               "README.md" \
               "README_EN.md" \
@@ -84,6 +85,7 @@ jobs:
               "deploy.sh" \
               "export-pdf.sh" \
               "extract-pptx.py" \
+              "inline_images.py" \
               "validate.py" |
               sort
           )"
@@ -109,6 +111,7 @@ jobs:
             "scripts/validate.py"
             "scripts/content_coverage.py"
             "scripts/extract-pptx.py"
+            "scripts/inline_images.py"
             "scripts/deploy.sh"
             "scripts/export-pdf.sh"
             "references/style-presets/index.json"
@@ -124,5 +127,6 @@ jobs:
           python3 -m py_compile \
             scripts/validate.py \
             scripts/content_coverage.py \
-            scripts/extract-pptx.py
+            scripts/extract-pptx.py \
+            scripts/inline_images.py
           bash -n scripts/deploy.sh scripts/export-pdf.sh

@@ -4,7 +4,7 @@
 
 > 把 Markdown 或 PowerPoint 变成可以直接投屏、分享和继续编辑的中文 HTML 汇报。
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![GitHub Release](https://img.shields.io/github/v/release/chengzi2333/html-report-skill)
 
@@ -14,13 +14,16 @@
 
 HTML Report Skill 做的就是这件事：在优秀开源项目 [zarazhangrui/frontend-slides](https://github.com/zarazhangrui/frontend-slides) 的基础上，把它打磨成更适合中文工作汇报、项目演示、技术分享和文档可视化的 Agent Skill。
 
-当前版本：**1.0.0 MVP 公开试用版**。
+当前版本：**1.1.0**。
 
 ## 为什么值得用
 
 - **先看风格，再正式生成**：正式生成前会先给 3 套真实 HTML 预览，不喜欢可以重选，不会直接替你拍板。
 - **更适合中文汇报**：中文字体回退、表格左对齐、章节标题、内容密度、稀疏页居中和高密度阅读都有明确规则。
 - **内容可靠性更强**：生成前回读原文，交付时检查标题、图片、表格、代码块、列表是否覆盖。
+- **单文件图片可移植**：交付前把本地、远程、CSS 和 `srcset` 图片内联为 Base64，部署后不再依赖原始图片路径。
+- **阶段与确认更清楚**：每个 Phase 进入、完成和返工都会提示当前位置，关键选择统一经过结构化确认。
+- **25 套中文预设**：保留原有 12 套稳定预设，新增 13 套中文适配预设，并集中保留来源与许可证声明。
 - **不是只会静态排版**：支持弹窗、tooltip、图片 lightbox、证据轮播、浏览器内编辑等真实交互。
 - **有质量门禁**：`validate.py` 会检查视口、布局、交互、打印、字体、响应式和交互声明是否兑现。
 - **交付路径闭环**：先让你在本机浏览器确认 HTML，再进入分享、部署或 PDF 导出。
@@ -37,6 +40,8 @@ HTML Report Skill 做的就是这件事：在优秀开源项目 [zarazhangrui/fr
 | 中文字体容易回退到不合适的系统字体 | 增加中文字体回退链、中文行高和禁用首行缩进规则 |
 | 交互经常只写在说明里，没有真实实现 | 声明了弹窗、tooltip、轮播，就必须提供真实可操作实例 |
 | MD 分析摘要传递过程中可能丢图片、表格或代码块 | Phase 3 生成前回源读取原文，交付时输出内容覆盖率判断 |
+| HTML 部署后相对路径和本地图片失效 | `inline_images.py` 将图片转为 Data URI，并由 validator 阻塞残留引用 |
+| 用户难以判断流程进行到哪一步 | 全局 Phase 进入、完成、回退提示，以及 C01–C08 确认点注册表 |
 | 生成完缺少客观质量检查 | `validate.py` 做静态质量门禁，80 分以下阻塞交付 |
 | 用户还没确认效果就进入导出/部署 | Phase 5 先打开 demo 让用户确认，再进入 Phase 6 |
 

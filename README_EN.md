@@ -4,7 +4,7 @@
 
 > Turn Markdown or PowerPoint content into Chinese HTML presentations that are ready to present, share, and edit.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![GitHub Release](https://img.shields.io/github/v/release/chengzi2333/html-report-skill)
 
@@ -14,13 +14,16 @@ Many document-to-presentation tools stop at generating pages. A real work presen
 
 HTML Report Skill addresses that workflow. Built on the excellent open-source project [zarazhangrui/frontend-slides](https://github.com/zarazhangrui/frontend-slides), it adds the reliability, interaction, and delivery rules needed for Chinese work reports, project presentations, technical talks, and document visualization.
 
-Current version: **1.0.0 MVP public preview**.
+Current version: **1.1.0**.
 
 ## Why use it
 
 - **Preview before generation**: see three real HTML style previews before the final report is built. Rejecting all three starts a new direction instead of forcing a choice.
 - **Chinese-first layout rules**: font fallbacks, table alignment, section headings, content density, sparse-page centering, and dense-reading layouts.
 - **Content reliability**: re-read the source before generation and check coverage for headings, images, tables, code blocks, and lists at delivery time.
+- **Portable single-file images**: inline local, remote, CSS, and `srcset` images as Base64 before delivery so deployed reports do not depend on source paths.
+- **Visible phases and confirmation gates**: announce phase entry, completion, and rework while routing key decisions through structured confirmation.
+- **25 Chinese-ready presets**: keep the original 12 stable presets and add 13 localized presets with centralized source and license attribution.
 - **Real interactions**: modal dialogs, tooltips, image lightbox, evidence carousel, and in-browser editing.
 - **A quality gate**: `validate.py` checks viewport behavior, layout, interactions, print styles, typography, responsiveness, and whether interaction claims are actually implemented.
 - **A complete delivery path**: open the report in the user's local browser, confirm it, then continue to sharing, deployment, or PDF export.
@@ -37,6 +40,8 @@ This is not an official upstream release. It preserves the HTML slide approach, 
 | Chinese text falls back to unsuitable system fonts | Chinese font fallback chains, line-height rules, and no first-line indentation |
 | Interactions are described but not implemented | Declared modals, tooltips, and carousels must have working CSS and JavaScript |
 | Images, tables, or code blocks may disappear between analysis and generation | Re-read the original source before generation and report content coverage at delivery |
+| Relative and local images break after cloud deployment | `inline_images.py` converts images to Data URIs and the validator blocks remaining external references |
+| Users cannot tell where they are in the workflow | Global phase entry, completion, and rollback prompts plus the C01–C08 confirmation registry |
 | Generated output has no objective quality gate | `validate.py` blocks delivery below 80 and reports remaining issues above the threshold |
 | Export starts before the user has checked the result | Phase 5 confirms the demo first; Phase 6 handles sharing and export afterward |
 
